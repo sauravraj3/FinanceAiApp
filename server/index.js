@@ -6,11 +6,9 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 
-
-
-// Configuration Details
-
+// Load environment variables from .env file
 dotenv.config();
+
 const app = express();
 app.use(express.json());
 app.use(helmet());
@@ -20,17 +18,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
+const PORT = process.env.PORT || 9001; // Changed port number
+const MONGO_URI = 'mongodb+srv://sauravraj3sinha:Sinha123@financeaiapp.vdovoo3.mongodb.net/?retryWrites=true&w=majority&appName=FinanceAIApp'; // Ensure this is correctly set
 
+if (!MONGO_URI) {
+    console.error("MONGO_URI is not defined in the environment variables");
+    process.exit(1); // Exit the application if MONGO_URI is not set
+}
 
-// Mongoose Setup
-
-
-const PORT = process.env.PORT || 9000;
-mongoose.connect({
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(async () => {
-        app.listen(PORT, () => console.log(`Server Port : ${PORT}`));
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
     })
-    .catch((error) => console.log(`${error} did not connect`));
+    .catch((error) => console.error(`Error connecting to MongoDB: ${error.message}`));
