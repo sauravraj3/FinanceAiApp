@@ -8,7 +8,7 @@ export interface Month {
   id: string;
   month: string;
   revenue: number;
-  expenses: string;
+  expenses: number;
   nonOperationalExpenses: number;
   operationalExpenses: number;
 }
@@ -28,4 +28,18 @@ export interface GetKpisResponse {
   expensesByCategory: ExpensesByCategory;
   monthlyData: Array<Month>;
   dailyData: Array<Date>;
+  createdAt: string;
+  updatedAt: string;
 }
+
+export interface GetProductsResponse {
+  id: string;
+  _id: string;
+  __v: number;
+  price: number;
+  expense: number;
+  transactions: Array<string>;
+  createdAt: string;
+  updatedAt: string;
+}
+
