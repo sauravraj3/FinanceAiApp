@@ -7,9 +7,11 @@ import helmet from "helmet";
 import morgan from "morgan";
 import kpiRoutes from "./routes/kpi.js";
 import KPI from "./models/KPI.js";
-import { kpis, products } from "./data/data.js";
+import { kpis, products, transactions  } from "./data/data.js";
 import Product from "./models/Product.js";
 import productRoutes from "./routes/product.js";
+import Transaction from "./models/Transaction.js";
+import transactionRoutes from "./routes/transaction.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -27,7 +29,7 @@ app.use(cors());
 
 app.use("/kpi", kpiRoutes);
 app.use("/product", productRoutes);
-
+app.use("/transaction", transactionRoutes);
 const PORT = process.env.PORT || 9001; // Changed port number
 const MONGO_URI =
   "mongodb+srv://sauravraj3sinha:Sinha123@financeaiapp.vdovoo3.mongodb.net/?retryWrites=true&w=majority&appName=FinanceAIApp"; // Ensure this is correctly set
@@ -46,6 +48,7 @@ mongoose
     // await mongoose.connection.db.dropDatabase();
     // Product.insertMany(products);
     // KPI.insertMany(kpis);
+    // Transaction.insertMany(transactions);
 
   })
   .catch((error) =>
